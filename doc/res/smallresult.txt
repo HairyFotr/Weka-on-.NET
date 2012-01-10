@@ -1,0 +1,13 @@
+  langs={java};
+  java =
+  {"NaiveBayes",531,20,202,753};
+  java =
+  {"RandomForest",488,60,350,898};
+  java =
+  {"SMO",478,189,319,986};
+  java =
+  {"J48",469,29,21,519};
+  java =
+  {"MultilayerPerceptron",491,12814,1578,14883};
+  java =
+  {"ConjunctiveRule",465,22,17,504};

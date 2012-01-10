@@ -1,0 +1,11 @@
+  @relation train
+
+  @attribute DNA {A,T,C,G}
+  @attribute gene_structure_on_plus {_,O,I,E}
+  @attribute gene_structure_on_minus {O,_,I,E}
+  @attribute UTR&TSS {_,5utr,tss,3utr}
+  @attribute expression {_,H}
+  @attribute histone_binding {NN,N,Z,P,PP}
+  @attribute histone_modifications {Z,P,N}
+  @attribute nucleosome_occupancy {Z,P,N}
+  @attribute polII_presence {Z,N,P}

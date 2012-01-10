@@ -1,0 +1,5 @@
+  ConjunctiveRule 61004 out of 100000 correct (61.004%)
+  ConjunctiveRule 61004 out of 100000 correct (61.004%)
+  ConjunctiveRule 61004 out of 100000 correct (61,004%)
+  ConjunctiveRule 61004 out of 100000 correct (61.004%)
+  ConjunctiveRule 61004 out of 100000 correct (61.004000%)

@@ -1,0 +1,18 @@
+This is a benchmark of Weka on .NET on Windows. The report is in the doc/ folder
+
+To start the benchmark yourself, just run src/test.bat, but first read below.
+
+In case the libraries are not included... the lib folder should contain:
+  weka.jar
+  weka.dll
+  wekasharp folder
+  ikvm folder
+
+Another thing is the system PATH, which should contain paths to:
+  javac and java (Java)
+  csc (C# compiler)
+  dmsc and mono (Mono)
+  fsc (F# compiler)
+
+The benchmark outputs its results into the "result" file. The output data is meant to be fed into Mathematica for further analysis and plotting.
+  languageName={"Algorithm name", readingTime, buildingTime, classificationTime, totalTime}

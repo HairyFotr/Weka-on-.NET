@@ -1,0 +1,13 @@
+  set number of runs
+  set algorithms
+  set datasets
+
+  forall methods {
+    forall algorithms {
+      forall datasets {
+        compile and run programs
+      }
+    }
+  }
+      
+  save results

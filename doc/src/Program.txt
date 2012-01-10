@@ -1,0 +1,33 @@
+  read number of runs from args (default 1)
+  read classifier name from args (default All)
+  read dataset name from args (default "train")
+
+  for 1 to runs {
+    measure reading time {
+      read training data
+      set the last attribute as class
+      read test data
+      set the last attribute as class
+    }
+    
+    measure building time {
+      forall classifiers {
+        build classifier
+      }
+    }
+    
+    measure classifying time {
+      forall classifiers {
+        forall testsamples {
+          predict testsample class
+        }
+      }
+    }
+  }
+  
+  print classifier name
+  print read time
+  print build time
+  print classify time
+  print total time
+  
