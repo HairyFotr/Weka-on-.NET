@@ -358,7 +358,7 @@ The results of the total classifier building performance were a bit of a surpris
 The results show that Java is the fastest by about 60\%, and the memory benchmarks also show about 60\% lower memory usage. Based on these results we conclude that using Weka on the .NET Framework is indeed possible and for some use-cases practical.
 
 \section{Further work}
-More algorithms and different datasets could be tested -- this paper doesn't include any regressional algoritms, and some algorithms used were not a good match for the dataset used. Weka also includes algorithms for preprocessing and filtering which were not featured here. The resulting data should also be weighted before being plotted, to avoid the skew in data that manifested itself here. We should also investigate how it was possible for .NET to be faster than Java in the MultilayerPerceptron benchmark, and why Mono performance was so bad in some cases.
+More algorithms and different datasets could be tested -- this paper doesn't include any regressional algoritms, and some algorithms used were not a good match for the dataset used. Weka also includes algorithms for preprocessing and filtering which were not featured here. The resulting joint data should also be normalized before being plotted, to avoid the skew in data which manifested itself here. We should also investigate how it was possible for .NET to be faster than Java in the MultilayerPerceptron benchmark, and why Mono performance was so bad in some cases.
 
 Another thing which could be added are possible use-cases for Weka on .NET, such as using tools only available in the .NET ecosystem. Microsoft SQL server with its Analysis Services is a good example of a such tool\cite{sqlas:2012}.
 \begin{thebibliography}{1}
