@@ -14,6 +14,8 @@
 \usepackage{array}
 \usepackage{float}
 \usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{amssymb}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -95,7 +97,7 @@
 %\thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
 %\thanks{Manuscript received April 19, 2005; revised January 11, 2007.}}
 
-\markboth{MLDM Workshop, January~2012}{}
+\markboth{FRI MLDM Workshop 2012}{}
 %\IEEEspecialpapernotice{(Invited Paper)}
 
 \maketitle
@@ -111,10 +113,12 @@ Weka, .NET, benchmark, machine learning.
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-\IEEEPARstart{T}{his} paper will provide the reader with a tutorial and performance notes on using the Weka data-mining library on the Microsoft .NET framework. Weka originally runs on the Java Virtual Machine (JVM), but there are methods which allow running Java code on .NET. In this paper we will describe several approaches and benchmark the performance of each approach on multiple machine learning algorithms. We will also list some possible use-cases of Weka on .NET. For a brief description of the technologies used, see Appendix \ref{Tools}.
+\IEEEPARstart{T}{his} paper will provide the reader with an overview and performance notes on using the Weka data-mining library\cite{weka:2009} on the Microsoft .NET framework. Weka originally runs on the Java Virtual Machine (JVM), but there are methods which allow running Java code on .NET. This paper will describe several approaches and benchmark the performance of each approach on multiple machine learning algorithms. We will also list some possible use-cases of Weka on .NET. For a brief description of the technologies used, see Appendix \ref{Tools}.\\
 
 \hfill \today
-
+\ \\ \ \\
+\textbf{Note:}\\
+The complete source code and most files, which were used while creating this paper, are available online at:\\ \url{https://github.com/HairyFotr/Weka-on-.NET}\\
 \section{Java on .NET}
 In this section we will describe a few methods for using Java code on the .NET Framework. The text presumes usage of Microsoft Windows and that Java JDK, .NET Framework, Weka, IKVM, C\# and F\# compiler and Mono are already installed and that the correct directories have been added to the system PATH.\\ \ \\
 The exact versions of software used for generating the results in this paper are:
@@ -238,8 +242,13 @@ Next we will look at the joint performance across all algorithms for reading, cl
 \includegraphics[width=3.5in]{classify}
 \caption{Classifier execution performance results}
 \end{figure}
-\subsect{Results by classifier}
-Here we will show the results for each classifier for two attributes -- classifier building time(orange) and classifier executon time(green).
+\subsect{Results by algoritm}
+In this subsection we will present the performance results for each algorithm, separately.\\ \ \\
+We have used the following colors:
+\definecolor{orange}{rgb}{1,0.86,0.66}
+\definecolor{green}{rgb}{0.73,1,0.83}\\
+\tab {\color{orange} $\blacksquare$} -- classifier building time\\
+\tab {\color{green} $\blacksquare$} -- classifier exectuion time\\
 \begin{figure}[H]
 \centering
 \includegraphics[width=3.5in]{NaiveBayes}
@@ -270,7 +279,14 @@ Here we will show the results for each classifier for two attributes -- classifi
 \includegraphics[width=3.5in]{ConjunctiveRule}
 \caption{ConjunctiveRule performance results}
 \end{figure}
-
+\subsect{Memory usage}
+One aspect of performance is also the memory usage of the programs. The memory benchmark was performed simply by stopping the programms right before their ending (this was done by adding a \ver{readLine} command to the end of all three programs), and then writting down the \ver{Memory - Peak Working Set} figure from the Windows Task Manager.
+\begin{figure}[H]
+\centering
+\includegraphics[width=3.5in]{res/mem}
+\caption{Memory performance results}
+\end{figure}
+The result shown above was produced by building and executing all of the selected algorithms once. The benchmark was repeated a few times, but there was less than 1MB difference in memory usage between runs.
 
 % Note that IEEE typically puts floats only at the top, even when this
 % results in a large percentage of a column being occupied by floats.
@@ -332,20 +348,29 @@ Here we will show the results for each classifier for two attributes -- classifi
 %\end{table}
 
 \section{Conclusion}
-The results of the total classifier building performance were a bit of a surprise, as \ver{javaikvm} and \ver{fsharp} are actually faster than \ver{java}. Later results on particular classifiers showed that the benchmark was skewed by the MultilayerPerceptron benchmark, which accounted for more than half of the total benchmarking time. Another abnormality is Mono -- its performance was so bad, that it made the graphs hard to read. Here is the total graph again, with the MultilayerPerceptron and Mono results left out.
+The results of the total classifier building performance were a bit of a surprise, as \ver{javaikvm} and \ver{fsharp} are actually faster than \ver{java}. Later results on particular classifiers showed that the benchmark was skewed by the MultilayerPerceptron benchmark, which accounted for more than half of the total benchmarking time. Another abnormality was Mono -- its performance was so bad, that it made some graphs hard to read. Here is the total graph again, with the MultilayerPerceptron and Mono results left out.
 \begin{figure}[H]
 \centering
 \includegraphics[width=3.5in]{TotalTotal}
 \caption{Total performance results}
 \end{figure}
 
-The results show that Java is the fastest, by about 60\%. But we still conclude that using Weka on .NET is possible and for some use-cases practical.
+The results show that Java is the fastest by about 60\%, and the memory benchmarks also show about 60\% lower memory usage. Based on these results we conclude that using Weka on the .NET Framework is indeed possible and for some use-cases practical.
 
 \section{Further work}
 More algorithms and different datasets could be tested -- this paper doesn't include any regressional algoritms, and some algorithms used were not a good match for the dataset used. Weka also includes algorithms for preprocessing and filtering which were not featured here. The resulting data should also be weighted before being plotted, to avoid the skew in data that manifested itself here. We should also investigate how it was possible for .NET to be faster than Java in the MultilayerPerceptron benchmark, and why Mono performance was so bad in some cases.
 
-Another thing which could be added are possible use-cases for Weka on .NET, such as using tools only available in the .NET ecosystem. Microsoft SQL server with its Analysis Services is a good example of a such tool.
+Another thing which could be added are possible use-cases for Weka on .NET, such as using tools only available in the .NET ecosystem. Microsoft SQL server with its Analysis Services is a good example of a such tool\cite{sqlas:2012}.
+\begin{thebibliography}{1}
 
+\bibitem{weka:2009}
+Mark Hall, Eibe Frank, Geoffrey Holmes, Bernhard Pfahringer, Peter Reutemann, Ian H. Witten (2009); The WEKA Data Mining Software: An Update; SIGKDD Explorations, Volume 11, Issue 1.
+\bibitem{sqlas:2012}
+David Hrovat (2012); Data Analysis with Microsoft SQL Server 2008 R2 Analysis Services; FRI MLDM Workshop 2012
+
+\end{thebibliography}
+
+\newpage
 
 % if have a single appendix:
 %\appendix[Proof of the Zonklar Equations]
@@ -355,9 +380,9 @@ Another thing which could be added are possible use-cases for Weka on .NET, such
 % is possibly needed
 \appendices
 \section{Tools}\label{Tools}
-In this appendix section we will briefly describe some technologies and tools we've used.
+In this appendix section we will briefly describe some of the technologies and tools we've used.
 
-\subsect{Weka}Weka (Waikato Environment for Knowledge Analysis)\cite{weka:2009} is a widely used machine learning library, both in academia and business. 
+\subsect{Weka}Weka (Waikato Environment for Knowledge Analysis) is a widely used machine learning library, both in academia and business. 
 \begin{figure}[H]
 \centering
 \includegraphics[width=2.2in]{weka}
@@ -368,7 +393,7 @@ Its development started in 1993 at the University of Waikato, New Zealand. Initi
 
 %Weka is distributed as a single \verb .jar file, which can be either used as a library or run as an data-mining application called Weka workbench.
 
-\subsect{Mono}Mono is a software platform designed to allow developers to easily create cross platform applications. Sponsored by Xamarin, Mono is an open source implementation of Microsoft's .NET Framework based on the ECMA standards for C\# and the Common Language Runtime.
+\subsect{Mono}Mono is a software platform designed to allow developers to easily create cross platform applications. Mono is an open-source implementation of Microsoft's .NET Framework based on the ECMA standards for C\# and the Common Language Runtime (CLI).
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.25in]{Mono}
@@ -376,7 +401,7 @@ Its development started in 1993 at the University of Waikato, New Zealand. Initi
 \label{fig_sim}
 \end{figure}
 
-\subsect{IKVM}IKVM.NET is an implementation of Java for Mono and the Microsoft .NET Framework. It includes the following components:
+\subsect{IKVM}IKVM.NET is an implementation of Java for both Mono and the Microsoft .NET Framework. It includes the following components:
 \begin{itemize}
 \item A Java Virtual Machine implemented in .NET
 \item A .NET implementation of the Java class libraries
@@ -415,15 +440,7 @@ Its development started in 1993 at the University of Waikato, New Zealand. Initi
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
-\begin{thebibliography}{1}
 
-\bibitem{weka:2009}
-Mark Hall, Eibe Frank, Geoffrey Holmes, Bernhard Pfahringer, Peter Reutemann, Ian H. Witten (2009); The WEKA Data Mining Software: An Update; SIGKDD Explorations, Volume 11, Issue 1.
-%\bibitem{rms:2002}
-%Richard M. Stallman and Joshua Gay. Free Software, Free Society: Selected Essays of Richard M. Stallman. Free Software Foundation, June 2002.
-
-
-\end{thebibliography}
 
 % biography section
 % 

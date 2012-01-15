@@ -8,8 +8,9 @@ mkdir tmp 2>NUL
 
 set runs=1
 rem "" for all, available: NaiveBayes, RandomForest, MultilayerPerceptron, SMO, J48, ConjunctiveRule ... TODO: pca, regresija
-set algorithms=(NaiveBayes)
+set algorithms=(All)
 set datasets=("500")
+set waitafter="yes"
 if NOT [%1]==[] echo langs={%1}; >> result
 if [%1]==[] echo langs={java,javaikvm,net,mono,fsharp}; >> result
 
@@ -28,7 +29,7 @@ for %%a in %algorithms% do (
   echo Running %%a
   for %%d in %datasets% do (
     echo java = >> ..\result    
-    java -Xmx1024m -cp weka.jar;. Program %runs% %%a %%d >> ..\result
+    java -Xmx1024m -cp weka.jar;. Program %runs% %%a %%d %waitafter% %waitafter% >> ..\result
   )
 )
 echo Finished java %time%
@@ -49,7 +50,7 @@ for %%a in %algorithms% do (
   echo Running %%a
   for %%d in %datasets% do (
     echo javaikvm = >> ..\result    
-    ..\lib\ikvm\bin\ikvm -cp weka.jar;. Program %runs% %%a %%d >> ..\result
+    ..\lib\ikvm\bin\ikvm -cp weka.jar;. Program %runs% %%a %%d %waitafter% >> ..\result
   )
 )
 echo Finished javaikvm %time%
@@ -71,7 +72,7 @@ for %%a in %algorithms% do (
   echo Running %%a
   for %%d in %datasets% do (
     echo net = >> ..\result    
-    Program.exe %runs% %%a %%d >> ..\result
+    Program.exe %runs% %%a %%d %waitafter% >> ..\result
   )
 )
 echo Finished net %time%
@@ -93,7 +94,7 @@ for %%a in %algorithms% do (
   echo Running %%a
   for %%d in %datasets% do (
     echo mono = >> ..\result    
-    mono Program.exe %runs% %%a %%d >> ..\result
+    mono Program.exe %runs% %%a %%d %waitafter% >> ..\result
   )
 )
 echo Finished mono %time%
@@ -114,7 +115,7 @@ for %%a in %algorithms% do (
   echo Running %%a
   for %%d in %datasets% do (
     echo fsharp = >> ..\result    
-    Program.exe %runs% %%a %%d >> ..\result
+    Program.exe %runs% %%a %%d %waitafter% >> ..\result
   )
 )
 echo Finished fsharp %time%

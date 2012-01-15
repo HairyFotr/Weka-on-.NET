@@ -2,6 +2,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.classifiers.*;
 import java.io.FileReader;
+import java.util.Scanner;
 
 class Program {
   public static void main(String args[]) {
@@ -33,14 +34,14 @@ class Program {
                 
         long buildStart = System.nanoTime();
         for (Classifier classifier : clList) {
-          if(algo.equals("") || classifier.getClass().getSimpleName().equals(algo))
+          if(algo.equals("") || algo.equals("All") || classifier.getClass().getSimpleName().equals(algo))
               classifier.buildClassifier(train);
         }
         build += System.nanoTime()-buildStart;
 
         long classifyStart = System.nanoTime();
         for (Classifier classifier : clList) {
-          if(algo.equals("") || classifier.getClass().getSimpleName().equals(algo)) {
+          if(algo.equals("") || algo.equals("All") || classifier.getClass().getSimpleName().equals(algo)) {
               int numCorrect = 0;
               for (int i = 0; i < test.numInstances(); i++)
               {
@@ -56,8 +57,11 @@ class Program {
       build /= 1000000;
       classify /= 1000000;
       System.out.println("{\""+ algo + "\"," + read + "," + build + "," + classify + "," + (read+build+classify)+"};");
+      if(args.length>3) {
+        (new Scanner(System.in)).nextLine();
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
+}
 }

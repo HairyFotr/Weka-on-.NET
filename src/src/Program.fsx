@@ -32,13 +32,13 @@ try
     
     build.Start()
     for classifier in clList do
-      if algo.Equals("") || classifier.getClass().getSimpleName().Equals(algo) then
+      if algo.Equals("") || algo.Equals("All") || classifier.getClass().getSimpleName().Equals(algo) then
         classifier.buildClassifier(train)
     build.Stop()
 
     classify.Start()
     for classifier in clList do
-      if algo.Equals("") || classifier.getClass().getSimpleName().Equals(algo) then
+      if algo.Equals("") || algo.Equals("All") || classifier.getClass().getSimpleName().Equals(algo) then
         let mutable numCorrect = 0
         for i = 0 to test.numInstances()-1 do
           if classifier.classifyInstance(test.instance(i)) = test.instance(i).classValue() then
@@ -46,5 +46,6 @@ try
         //printfn "%s\t%d%s%d%s%f%s" (classifier.getClass().getSimpleName()) numCorrect " out of "  (test.numInstances()) " correct (" ((100.0 * float(numCorrect)) / float(test.numInstances())) "%)"
     classify.Stop()
   printfn "{\"%s\",%d,%d,%d,%d};" algo read.ElapsedMilliseconds build.ElapsedMilliseconds classify.ElapsedMilliseconds (read.ElapsedMilliseconds+build.ElapsedMilliseconds+classify.ElapsedMilliseconds)
+  if args.Length>4 then Console.ReadLine() |> ignore
 with
   | :? java.lang.Exception as e -> e.printStackTrace()

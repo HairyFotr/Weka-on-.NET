@@ -36,14 +36,14 @@ public class Program
 
         build.Start();
         foreach (Classifier classifier in clList) {
-          if(algo.Equals("") || classifier.getClass().getSimpleName().Equals(algo))
+          if(algo.Equals("") || algo.Equals("All") || classifier.getClass().getSimpleName().Equals(algo))
               classifier.buildClassifier(train);
         }
         build.Stop();
 
         classify.Start();
         foreach (Classifier classifier in clList) {
-          if(algo.Equals("") || classifier.getClass().getSimpleName().Equals(algo)) {
+          if(algo.Equals("") || algo.Equals("All") || classifier.getClass().getSimpleName().Equals(algo)) {
               int numCorrect = 0;
               for (int i = 0; i < test.numInstances(); i++)
               {
@@ -56,6 +56,7 @@ public class Program
         classify.Stop();
       }
       Console.WriteLine("{\""+ algo + "\"," + read.ElapsedMilliseconds + "," + build.ElapsedMilliseconds + "," + classify.ElapsedMilliseconds + "," + (read.ElapsedMilliseconds+build.ElapsedMilliseconds+classify.ElapsedMilliseconds)+"};");
+      if(args.Length>3) Console.ReadLine();
     } catch (java.lang.Exception e){
       e.printStackTrace();
     }
